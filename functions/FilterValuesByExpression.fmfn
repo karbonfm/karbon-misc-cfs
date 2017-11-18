@@ -1,0 +1,54 @@
+/**
+ * 
+ * Filter a List with a FilerMaker Expression
+ * 
+ * if the expression is applied to each value in the List and 
+ * if it evalutes to true then the Item is return.  Expressions 
+ * can use "item" to refer to the List Item
+ *
+ * @param {string} theList
+ * @param {string} expression
+ *
+ * @returns {string} the filtered list
+ *
+ * @module karbon-misc-cfs
+ * @see https://github.com/karbonfm/karbon-misc-cfs
+ * 
+ * @history  2013-09-27, todd@geistinteractive.com
+ *
+ */
+
+/*
+EXAMPLES:
+
+// get all values that begin with the letter a
+FilterValuesByExpression ( List("a" ; "bee"; "see" ; "apple") ; "Left(item ;1) = \"a\" " )
+//  -> a¶apple
+
+// get all values that contain "ee"
+FilterValuesByExpression ( List("a" ; "bee"; "see" ; "apple") ; " PatternCount( item ; \"ee\" )" )
+//  -> bee¶see
+
+*/
+
+
+Let(
+[
+
+left = " Let( [ item =\"";
+right = "\" ]; If( " & expression & " ; item ) );" ;
+
+let = 
+"List(¶"  & 
+left & 
+Substitute(theList & "¶" ; "¶" ; right & "¶" & left) & 
+right
+& "¶)"
+
+
+
+];
+
+Evaluate( let )
+
+)

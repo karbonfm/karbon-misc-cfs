@@ -1,0 +1,31 @@
+/**
+ * 
+ * remeove duplicates from a List
+ *
+ * @param {string} Text the list to de-dup
+ *
+ * @returns {string} the new list
+ *
+ * @module karbon-misc-cfs
+ * @see https://github.com/karbonfm/karbon-misc-cfs
+ * 
+ * @history  2017-11-17, todd@geistinteractive.com
+ *
+ */
+
+
+Let ( [
+
+TheValue = LeftValues ( Text ; 1 ) ;
+TheCount = ValueCount ( Text ) ;
+NewText = Replace ( Substitute ( "¶" & Text & "¶" ; [ "¶" ; "¶|" ] ; [ "|" & TheValue ; "" ] ; [ "|" ; "" ] ) ; 1 ; 1 ; "" )
+
+] ;
+
+     Case ( TheCount > 0 ;
+
+          TheValue & RemoveDuplicates ( Replace ( NewText ; Length ( NewText ) ; 1 ; "" ) )
+
+     )
+
+)

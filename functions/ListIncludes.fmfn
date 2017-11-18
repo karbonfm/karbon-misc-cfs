@@ -1,0 +1,17 @@
+/**
+ * 
+ * Test if the list contains the item
+ *
+ * @param {string} theList
+ * @param {string} theItem
+ *
+ * @returns {boolean}
+ *
+ * @module karbon-misc-cfs
+ * @see https://github.com/karbonfm/karbon-misc-cfs
+ * 
+ * @history  2017-11-17, todd@geistinteractive.com
+ *
+ */
+
+not IsEmpty( FilterValues ( theList ; theItem ) )

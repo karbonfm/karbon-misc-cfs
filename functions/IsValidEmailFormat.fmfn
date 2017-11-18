@@ -1,0 +1,40 @@
+/**
+ * 
+ * Test for valid email
+ *
+ * Since new top-level domains are constantly added, this function 
+  * assumes the top-level domain is legitimate and validates only the 
+  * email format.
+ *
+ * @param {string} text
+ *
+ * @returns {boolean}
+ *
+ * @module karbon-misc-cfs
+ * @see https://github.com/karbonfm/karbon-misc-cfs
+ * 
+ * @history  2008-11-17, mike@allieddataservice.com, created
+ * @history  2010-12-05, mike@allieddataservice.com, created
+ *
+ */
+
+
+
+IsEmpty ( text ) or  // Comment out this line if you want to prohibit null values.
+Let ( [
+   alphanum = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" ;
+   textEnds = Left ( text; 1 ) & Right ( text; 1 ) ;
+   posDomain = Position ( text; "@"; 1; 1 ) ;
+   domain = If ( posDomain; Right ( text; Length ( text ) - posDomain ) ) ;
+   leftChar = Left ( domain; 1 ) ;
+   posTLD = If ( posDomain; Position ( domain; "."; 1; 1 ) ) ;
+   TLD = If ( posTLD; Right ( domain; Length ( domain ) - posTLD ) )
+] ;
+   Filter ( text; alphanum & "_-@.'/+" ) = text   // There are no invalid characters.
+   and PatternCount ( text; "@" ) = 1   // There is only one @ symbol.
+   and Filter ( textEnds; alphanum) = textEnds   // First and last character are alphanumeric.
+   and not Position ( text; ".."; 1; 1 )
+   and Middle ( text; posDomain - 1; 1 ) <> "."
+   and Filter ( leftChar; alphanum ) = leftChar
+   and not IsEmpty ( TLD )
+) // end let
